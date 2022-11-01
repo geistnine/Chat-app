@@ -1,54 +1,37 @@
 import React, { useState } from "react";
 import Register from "./Register.jsx";
 import Chatbox from "./chatbox.jsx"
-import {Route, Link, Navigate} from "react-router-dom";
+import {Route, Routes, Navigate, useAsyncError} from "react-router-dom";
 
 const App = () => {
-  const [user, setUser] = useState({name: '', password: ''});
-  const Login = (user, signedUp) => {
-    // if signedUp is false, query DB to check for valid user
-    console.log(user);
-    fetch('/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'Application/JSON',
-      },
-      body: JSON.stringify(user),
-    })
-      .then(() => {
-        setUser(user);
-        Navigate('/application');
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-    console.log(user);
-  }
-  const Signup = (user) => {
-    fetch('/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'Application/JSON'
-      },
-      body: JSON.stringify(user),
-    })
-      .then(() => {
-        Login(user, true)
-      })
-      .catch(err => console.log('Signup fetch /register: ERROR: ', err));
-  }
+  
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // if (isLoggedIn){
+  //   return <Navigate to="/application" />
+  // }
+  
+  // the below sets up an infinite loop 
+  // if (user.name !== "" && user.password !== ""){
+  //   return <Navigate to="/application" />
+  // }
     return (
-      <div>
-        <h1>Hello world! subscroob</h1>
-        {user.name && user.password ? (
-        
-            <Route exact path="/application" component={Chatbox}/>
-        
-        )
-        : (<Register Login={Login} Signup={Signup}/>)}
-        
-      </div>
+      <Routes>
+        <Route path="/" element={<Register/>}/>
+        <Route path="/application" element={<Chatbox />}/>
+      </Routes>
     )
 }
+
+// <div>
+// <h1>Hello world! subscroob</h1>
+// {user.name && user.password ? (
+// <Routes>
+//     <Route exact path="/application" component={Chatbox}/>
+// </Routes>
+// )
+// : (<Register Login={Login} Signup={Signup}/>)}
+
+// </div>
+
 
 export default App;

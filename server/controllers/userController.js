@@ -16,7 +16,7 @@ userController.verifyUser = (req, res, next) => {
     .then(data => {
       console.log(data);
       if (data.password === req.body.password){
-        res.locals.user = data;
+        res.locals.user = {username: data.username, password: data.password};
         return next();
       } else res.status(400).send('Error, password mismatch in database');
     })
