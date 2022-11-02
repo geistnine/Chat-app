@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Register from "./Register.jsx";
 import Chatbox from "./chatbox.jsx"
 import {Route, Routes, Navigate, useAsyncError} from "react-router-dom";
+import {UserProvider} from './UserContext';
 
 const App = () => {
   
@@ -15,10 +16,12 @@ const App = () => {
   //   return <Navigate to="/application" />
   // }
     return (
-      <Routes>
-        <Route path="/" element={<Register/>}/>
-        <Route path="/application" element={<Chatbox />}/>
-      </Routes>
+      <UserProvider>
+        <Routes>
+          <Route path="/" element={<Register/>}/>
+          <Route path="/application" element={<Chatbox/>}/>
+        </Routes>
+      </UserProvider>
     )
 }
 

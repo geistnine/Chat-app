@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "./UserContext";
 
 const Register = (props) => {
-  const [user, setUser] = useState({name:'', password:''});
+  const [user, setUser] = useContext(UserContext);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -60,7 +61,8 @@ const Register = (props) => {
     Login(user)
   }
   
-  return (<div className="LoginForm"> 
+  return (
+  <div className="LoginForm"> 
     <form onSubmit={submitHandler}>
       <div className="form-inner">
         <h2> Login </h2>

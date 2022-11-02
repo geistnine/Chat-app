@@ -1,3 +1,16 @@
 body {
   background-color: rgb(102, 145, 145);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chatcontainer {
+  width: 80vw;
+  height: 80vh;
+  margin: 0 auto;
+  text-align: left;
+  overflow-y: scroll;
+  border: solid red;
+  background-color: rgb(100, 126, 131);
 }
