@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Tab, Nav, Button, Modal} from 'react-bootstrap';
 import Teams from './Teams.jsx';
 import Tickets from './Tickets.jsx';
@@ -26,6 +26,10 @@ export default function Sidebar() {
   // now let's add a new team to our user's list of teams using our modal
   const addTeamHandler = (newTeam) => {
     // initiate fetch request to backend
+    // post team to database first
+    fetch(`/teams/${newTeam}`);
+
+
     fetch('/users', {
       method: 'PUT',
       headers: {
@@ -33,14 +37,19 @@ export default function Sidebar() {
       },
       body: JSON.stringify({...user, teams: [...teams, newTeam]})
     })
-    .then(() => setTeams([...teams, newTeam]))
+    .then(() => {
+      setTeams([...teams, newTeam])
+      setUser({...user, teams: [...user.teams, newTeam] })
+    })
     .catch(err => console.log(err));
   }
 
-
-  const teamsArr = teams.map((team) => {
-    return <Teams name={team}/>
-  })
+  useEffect(() => {
+    fetch(`/users/${user.name}`)
+      .then((response) => response.json())
+      .then((data) => setUser({name: data.username, password: data.password, teams: data.teams}))
+      .catch(err => console.log(err));
+  }, user.teams)
 
   function closeModal() {
     setModalOpen(false);

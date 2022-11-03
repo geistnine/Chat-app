@@ -11,6 +11,15 @@ userController.createUser = (req, res, next) => {
   })
 }
 
+userController.findUser = (req, res, next) => {
+  User.findOne({username: req.params.name}).exec()
+    .then(data => {
+      res.locals.user = data
+      return next();
+    })
+    .catch(err => res.status(400).send('Error in findUser middleware, ', err));
+}
+
 userController.verifyUser = (req, res, next) => {
   User.findOne({username: req.body.name}).exec()
     .then(data => {

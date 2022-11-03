@@ -4,6 +4,7 @@ const socketio = require('socket.io');
 const path = require('path');
 const cors = require('cors');
 const userController = require('./controllers/userController');
+const teamController = require('./controllers/teamController');
 
 // MONGODB
 const mongoose = require('mongoose');
@@ -34,6 +35,11 @@ app.post('/register', userController.createUser, (req, res) => {
   
 })
 
+// find user
+app.get('/users/:name', userController.findUser, (req, res) => {
+  res.status(200).json(res.locals.user)
+})
+
 // login using existing credentials
 app.post('/users', userController.verifyUser, (req, res) => {
   res.status(200).json(res.locals.user);
@@ -43,6 +49,18 @@ app.post('/users', userController.verifyUser, (req, res) => {
 app.put('/users', userController.addTeam, (req, res) => {
   res.status(200).send('Updated teams');
 })
+
+
+// create a new team in db
+app.get('/teams/:team', teamController.createTeam, (req, res) => {
+  res.status(200).send('Created new team in db')
+})
+
+// post messages to a particular team entry in database
+app.post('/messages/:team', teamController.postMessage, (req, res) => {
+  res.status(200).send('Posted message to db')
+})
+
 
 app.get('/', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../src/index.html'));

@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from "react"
 import Message from './Message.jsx'
 import { UserContext } from "./UserContext";
+import { TeamsContext } from "../contexts/TeamsProvider.js";
 const socket = io();
 
 const ChatBox = () => {
   const [user, setUser] = useContext(UserContext);
+  const [selectedTeam] = useContext(TeamsContext);
+
   // TODO: refactor state and socketio messages to include 'sentBy' and 'time' to be rendered
   const [messages, setMessages] = useState([]);
 
@@ -20,7 +23,15 @@ const ChatBox = () => {
       sentBy: user.name,
       timeSent: date.toString()
     }
-    socket.emit('chat message', message)
+    fetch(`/messages/${selectedTeam}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'Application/JSON',
+      },
+      body: JSON.stringify(message),
+    })
+    .then(socket.emit('chat message', message))
+    
   }
   // useEffect hook to update message components??? maybe not
   useEffect( () => {

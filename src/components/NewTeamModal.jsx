@@ -10,7 +10,9 @@ function NewTeamModal(props) {
   }
 
   const handleAddTeam = () => {
+    console.log(teamName.current.value)
     props.addTeam(teamName.current.value)
+    props.closeModal();
   }
   return (
     <>
