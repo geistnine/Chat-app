@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(102, 145, 145);
+  background-color:
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,8 +9,20 @@ body {
   width: 80vw;
   height: 80vh;
   margin: 0 auto;
-  text-align: left;
   overflow-y: scroll;
   border: solid red;
   background-color: rgb(100, 126, 131);
 }
+
+.app-page-container {
+  display: flex;
+  flex-direction: row;
+}
+
+/* .d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+} */

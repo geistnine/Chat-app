@@ -1,7 +1,8 @@
 import React from "react";
 import {createRoot} from "react-dom/client";
 import App from './components/App';
-import styles from './styles.css'
+// import styles from './styles.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter } from "react-router-dom";
 
 

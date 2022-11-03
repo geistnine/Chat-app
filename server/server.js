@@ -39,6 +39,11 @@ app.post('/users', userController.verifyUser, (req, res) => {
   res.status(200).json(res.locals.user);
 })
 
+// update the teams of an existing user
+app.put('/users', userController.addTeam, (req, res) => {
+  res.status(200).send('Updated teams');
+})
+
 app.get('/', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../src/index.html'));
 })

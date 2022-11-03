@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "./UserContext";
+import { Container, Form, Button } from 'react-bootstrap';
 
 const Register = (props) => {
   const [user, setUser] = useContext(UserContext);
@@ -62,22 +63,23 @@ const Register = (props) => {
   }
   
   return (
-  <div className="LoginForm"> 
-    <form onSubmit={submitHandler}>
+    
+  <div className="LoginForm bg-dark text-light vw-100 vh-100 d-flex align-items-center gap-2 justify-content-center m-0 mr-0"> 
+    <Form onSubmit={submitHandler} className="rounded bg-green p-5" style={{backgroundColor: "green"}}>
       <div className="form-inner">
         <h2> Login </h2>
-        <div className="form-group">
-          <label htmlFor="name">Name:</label>
-          <input type="text" name="name" id="name" onChange={e => setUser({...user, name: e.target.value})}/>
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input type="text" name="password" id="password" onChange={e => setUser({...user, password: e.target.value})}/>
-        </div>
-        <button onClick={loginHandler}>Log In</button>
-        <button onClick={signupHandler}>Sign Up</button>
+        <Form.Group>
+          <Form.Label>Name:</Form.Label>
+          <Form.Control type="text" name="name" id="name" onChange={e => setUser({...user, name: e.target.value})}/>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label htmlFor="password">Password:</Form.Label>
+          <Form.Control type="text" name="password" id="password" onChange={e => setUser({...user, password: e.target.value})}/>
+        </Form.Group>
+        <Button onClick={loginHandler}>Log In</Button>
+        <Button variant="secondary" onClick={signupHandler}>Sign Up</Button>
       </div>
-    </form>
+    </Form>
   </div>)
 }
 

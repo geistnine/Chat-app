@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Register from "./Register.jsx";
-import Chatbox from "./chatbox.jsx"
+import AppPage from "./AppPage.jsx";
 import {Route, Routes, Navigate, useAsyncError} from "react-router-dom";
 import {UserProvider} from './UserContext';
 
@@ -19,7 +19,7 @@ const App = () => {
       <UserProvider>
         <Routes>
           <Route path="/" element={<Register/>}/>
-          <Route path="/application" element={<Chatbox/>}/>
+          <Route path="/application" element={<AppPage/>}/>
         </Routes>
       </UserProvider>
     )

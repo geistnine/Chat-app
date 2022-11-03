@@ -1,20 +1,26 @@
 import React, { useContext, useEffect, useState } from "react"
 import Message from './Message.jsx'
 import { UserContext } from "./UserContext";
-import styled from "styled-components";
 const socket = io();
 
 const ChatBox = () => {
   const [user, setUser] = useContext(UserContext);
+  // TODO: refactor state and socketio messages to include 'sentBy' and 'time' to be rendered
   const [messages, setMessages] = useState([]);
 
   const submitHandler = (e) => {
     e.preventDefault();
   }
-  // TODO: event listener for submitting message
+  // TODO: refactor socket event to include sentBy and timeSent
   const sendHandler = (e) => {
     const messageBarText = document.getElementById('messagetext').value;
-    socket.emit('chat message', messageBarText)
+    const date = new Date(Date.now());
+    const message = {
+      text: messageBarText,
+      sentBy: user.name,
+      timeSent: date.toString()
+    }
+    socket.emit('chat message', message)
   }
   // useEffect hook to update message components??? maybe not
   useEffect( () => {
@@ -22,7 +28,10 @@ const ChatBox = () => {
   })
   // functionality for array of messages
   // needs a message component possibly
-  const messageArr = messages.map( message => <Message content={message}/>)
+  const messageArr = messages.map( message => {
+     message.sentBy = message.sentBy === user.name ? 'You' : message.sentBy;
+     return <Message content={message}/>
+    })
 
   socket.on('chat message', function(msg) {
     console.log('Chat message event received at socket listener')
@@ -30,14 +39,14 @@ const ChatBox = () => {
   })
 
   return (
-    <div>
+    <div className="vw-100">
       <p>You arrived at Chatbox, but it's still under construction!</p>
       <div className="chatcontainer">
         <p>Welcome, {user.name}!</p>
         {messageArr}
       </div>
         <form onSubmit={submitHandler}>
-          <input type="text" name="messagetext" id="messagetext"/>
+          <input className="w-75" type="text" name="messagetext" id="messagetext"/>
           <button onClick={sendHandler}>Send</button>
         </form>
     </div>
