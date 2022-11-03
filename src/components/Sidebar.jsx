@@ -35,7 +35,7 @@ export default function Sidebar() {
       headers: {
         'Content-Type': 'Application/JSON'
       },
-      body: JSON.stringify({...user, teams: [...teams, newTeam]})
+      body: JSON.stringify({...user, teams: [...user.teams, newTeam]})
     })
     .then(() => {
       setTeams([...teams, newTeam])

@@ -10,7 +10,6 @@ teamController.createTeam = (req, res, next) => {
       const newTeam = new Team({name: req.params.team, messages: []});
       newTeam.save(function(err) {
         if (err) return res.status(400).json(err);
-        console.log(newTeam);
         return next();
       })
     })
@@ -32,6 +31,17 @@ teamController.postMessage = (req, res, next) => {
           .then(() => { return next()})
 
       }
+    })
+}
+
+teamController.getMessages = (req, res, next) => {
+  Team.findOne({name: req.params.team}).exec()
+    .then(data => {
+      if (data !== null){
+        res.locals.messages = data.messages
+        return next();
+      }
+      else return res.status(404).send('Not found')
     })
 }
 

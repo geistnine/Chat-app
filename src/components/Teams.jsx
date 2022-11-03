@@ -8,8 +8,6 @@ export default function Teams(props) {
   const [user, setUser] = useContext(UserContext);
   const [selectedTeam, setSelectedTeam] = useContext(TeamsContext);
   const selectTeamHandler = (e) => {
-    console.log(selectedTeam);
-    console.log(e.target.textContent);
     setSelectedTeam(e.target.textContent);
   }
 
@@ -19,7 +17,7 @@ export default function Teams(props) {
       {user.teams.map((team, index) => {
         const teamIsSelected = selectedTeam == team;
         return (
-        <ListGroup.Item key={index} action onClick={selectTeamHandler} active={teamIsSelected}>
+        <ListGroup.Item key={index} action onClick={selectTeamHandler} active={teamIsSelected} className={`${teamIsSelected ? 'bg-success' : 'notactive'}`}>
           {team}
         </ListGroup.Item>
         )

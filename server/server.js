@@ -61,6 +61,11 @@ app.post('/messages/:team', teamController.postMessage, (req, res) => {
   res.status(200).send('Posted message to db')
 })
 
+// retrieve messages from db
+app.get('/messages/:team', teamController.getMessages, (req, res) => {
+  res.status(200).json(res.locals.messages);
+})
+
 
 app.get('/', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../src/index.html'));
