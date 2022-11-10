@@ -10,7 +10,7 @@ body {
   height: 80vh;
   margin: 0 auto;
   overflow-y: scroll;
-  border: solid red;
+  border: solid rgb(55, 80, 126);
   background-color: rgb(100, 126, 131);
 }
 

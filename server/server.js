@@ -5,11 +5,12 @@ const path = require('path');
 const cors = require('cors');
 const userController = require('./controllers/userController');
 const teamController = require('./controllers/teamController');
+require('dotenv').config();
 
 // MONGODB
 const mongoose = require('mongoose');
 const User = require('./models/chatAppModels');
-const mongoURI = 'mongodb+srv://CSSteve:codesmith@testcluster.28mgi2o.mongodb.net/?retryWrites=true&w=majority';
+const { mongoURI } = process.env
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -78,6 +79,5 @@ io.on('connection', socket => {
   });
 });
 
-// TODO: socket.on chat message listener, should emit message to all connected sockets
 
 server.listen(3000, () => console.log('Server listening on port 3000'))
