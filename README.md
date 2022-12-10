@@ -1,4 +1,4 @@
-# Chat-app
+# Coordin8 - an RTC chat app
 
 Be sure to run commands npm install and npm run dev to start the application. You'll need your own mongo database URI to run functions dependent on data from the DB.
 Also, if you wanted to run a build version, the script for that breaks the code, so I still have to figure that out.
